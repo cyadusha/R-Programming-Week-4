@@ -1,0 +1,27 @@
+---
+title: "stats"
+author: "Yadu"
+date: "July 22, 2015"
+output: html_document
+---
+setwd("~/Desktop")
+install.packages("ggplot2")
+airmiles <- read.csv("airmiles.csv", sep = ",", header = TRUE)
+mydata <- airmiles[1:24, c(2,3)]
+require(ggplot2)
+qplot(time, ylab = "number of commercial airlines", data = airmiles, binwidth = 5)
+qplot(airmiles, ylab = "number of commercial airlines", data = airmiles, binwidth = 10000)
+summary(mydata)
+qplot(time, airmiles, data = airmiles)
+cor(airmiles$`airmiles`, airmiles$`time`)
+boxplot(airmiles$`airmiles`)
+library(ggplot2)
+ggplot(data = mydata, aes(x = time, y = airmiles)) + 
+geom_point(shape = 1) + 
+geom_smooth(method = lm)
+ggplot(data = mydata, aes(x = time, y = airmiles)) + 
+geom_point(shape = 1) + 
+geom_smooth()
+#http://rpubs.com/catlin/DPBWeek6
+#http://www.cookbook-r.com/Graphs/Scatterplots_(ggplot2)/
+#We can see from the histogram plot of the air miles, there are less commercial airlines that fly a higher number of miles and more commercial airlines that fly a lower number of miles. The distribution here is also not normal. The correlation coefficient between both variables is 0.95. This means that both variables are almost linearly dependent. A loess smoothed fit curve can also exist in this scatter-plot and it fits almost perfectly. Despite the fact that there are less commercial airlines that fly a higher number of miles, we can still infer fromt the scatterplot of time and airmiles that a typical airline flies more and more miles as the years go by. But the frequency of commercial airlines flying decreases as the years go by because there is a bigger cluster in the vicinity of the coordinate point (1945,0).  
